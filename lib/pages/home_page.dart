@@ -26,29 +26,50 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: _tasksList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => SecondPage()));
-        },
-        child: Icon(Icons.add),
-      ),
+      floatingActionButton: _addTaskButton(),
     );
   }
 
   Widget _tasksList() {
-    return Container(
-      width: _deviceWidth * 0.9,
-      height: _deviceHeight * 0.7,
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text('Task $index'),
-            onTap: () {
-              // Navigate to the TaskDetailsPage with the task index
-            },
-          );
-        },
+    return ListView(
+      children: [
+        ListTile(
+          title: const Text(
+            'Do Laundry!',
+            style: TextStyle(decoration: TextDecoration.lineThrough),
+          ),
+          subtitle: Text(
+            DateTime.now().toString(),
+          ),
+          trailing: const Icon(
+            Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+          // onTap: () {},
+        ),
+        ListTile(
+          title: const Text(
+            'Do Laundry!',
+            style: TextStyle(decoration: TextDecoration.lineThrough),
+          ),
+          subtitle: Text(
+            DateTime.now().toString(),
+          ),
+          trailing: const Icon(
+            Icons.check_box_outlined,
+            color: Colors.red,
+          ),
+          // onTap: () {},
+        ),
+      ],
+    );
+  }
+
+  Widget _addTaskButton() {
+    return FloatingActionButton(
+      onPressed: () {},
+      child: const Icon(
+        Icons.add,
       ),
     );
   }
