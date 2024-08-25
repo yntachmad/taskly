@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
             _box = _snapshot.data;
             return _tasksList();
           } else {
-            return Center(
+            return const Center(
               child: const CircularProgressIndicator(),
             );
           }
