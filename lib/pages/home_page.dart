@@ -18,10 +18,16 @@ class _HomePageState extends State<HomePage> {
   _HomePageState();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
-    print("input new task content : $_newTaskContent");
+    // print("input new task content : $_newTaskContent");
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: _deviceHeight * 0.15,
@@ -41,8 +47,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _tasksView() {
     return FutureBuilder(
-        future: Hive.openBox('tasks'),
-        // future: Future.delayed(const Duration(seconds: 2)),
+        // future: Hive.openBox('tasks'),
+        future: Future.delayed(const Duration(seconds: 4)),
         builder: (BuildContext _context, AsyncSnapshot _snapshot) {
           if (_snapshot.connectionState == ConnectionState.done) {
             _box = _snapshot.data;
@@ -56,14 +62,16 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _tasksList() {
-    Task _newTask =
-        Task(content: 'Go to Gym', timestamp: DateTime.now(), done: false);
-    _box?.add(
-      _newTask.toMap(),
-    );
-    return ListView(
-      children: [
-        ListTile(
+    // Task _newTask =
+    //     Task(content: 'Go to Gym', timestamp: DateTime.now(), done: false);
+    // _box?.add(
+    //   _newTask.toMap(),
+    // );
+    List tasks = _box!.values.toList();
+    return ListView.builder(
+      itemCount: tasks.length,
+      itemBuilder: (BuildContext _context, int _index) {
+        return ListTile(
           title: const Text(
             'Do Laundry!',
             style: TextStyle(decoration: TextDecoration.lineThrough),
@@ -76,22 +84,8 @@ class _HomePageState extends State<HomePage> {
             color: Colors.red,
           ),
           // onTap: () {},
-        ),
-        ListTile(
-          title: const Text(
-            'Do Laundry!',
-            style: TextStyle(decoration: TextDecoration.lineThrough),
-          ),
-          subtitle: Text(
-            DateTime.now().toString(),
-          ),
-          trailing: const Icon(
-            Icons.check_box_outlined,
-            color: Colors.red,
-          ),
-          // onTap: () {},
-        ),
-      ],
+        );
+      },
     );
   }
 
